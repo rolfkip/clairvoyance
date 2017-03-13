@@ -1,0 +1,38 @@
+<link rel="import" href="./bower_components/polymer/polymer.html">
+<link rel="import" href="./bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="./bower_components/iron-icons/iron-icons.html">
+<script src="./javascript/leagueController.js"></script>
+
+<dom-module id="api-widget">
+    <template>
+        <style>
+            /* local DOM styles go here */
+            :host {
+                display: inline-block;
+            }
+        </style>
+
+        <!-- local DOM goes here -->
+        <paper-icon-button icon="add-circle-outline" on-tap="isInGame"></paper-icon-button>
+        <div>[[inGame]]</div>
+    </template>
+
+    <script>
+    Polymer({
+        is: 'api-widget',
+        properties: {
+            inGame: {
+                type: String,
+                value: ""
+            }
+        },
+        isInGame: function() {
+            let lc = new leagueController();
+            let summoner = lc.getQueryVariable("summoner");
+
+            let summonerId = lc.isInGame(summoner);
+            this.inGame = summonerId;
+        }
+    });
+    </script>
+</dom-module>
